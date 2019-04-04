@@ -51,7 +51,7 @@ namespace ClassLibraryToDoList
         public void Completd()
         {
             var e = from s in _Taskitem
-                    where s.IsDone == false
+                    where s.IsDone == true
                     select s;
 
             foreach (var i in e)
@@ -60,32 +60,45 @@ namespace ClassLibraryToDoList
             }
         }
 
-        public void ChangeActive(Taskitem item)
+        public int ReturnItm(Taskitem item)
         {
             if (_Taskitem.Contains(item))
             {
                 var itemindex = _Taskitem.IndexOf(item);
 
-                if (_Taskitem[itemindex].IsDone == true)
+                return itemindex;
+            }
+            else
+            {
+                throw new ArgumentException("Argument not found");
+            }
+        }
+        public void ChangeActive(Taskitem item)
+        {
+            if (_Taskitem.Contains(item))
+            {
+                
+
+                if (item.IsDone == true)
                 {
-                    _Taskitem[itemindex].IsDone = false;
+                    item.IsDone = false;
                 }
                 else
 
-                if (_Taskitem[itemindex].IsDone == false)
+                if (item.IsDone == false)
                 {
-                    _Taskitem[itemindex].IsDone = true;
+                    item.IsDone = true;
                 }
             }
             else
             {
-                throw new ArgumentOutOfRangeException("Argument not found");
+                throw new ArgumentException("Argument not found");
             }
         }
         public void Active()
         {
             var e = from s in _Taskitem
-                    where s.IsDone == true
+                    where s.IsDone == false
                     select s;
 
             foreach (var i in e)
