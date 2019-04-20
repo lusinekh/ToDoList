@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryToDoList
 {
-    public class ToDoList : IEnumerable<Taskitem>
+    public class ToDoList : IEnumerable<ToDoItem>
     {
         #region Variables
-        private List<Taskitem> _Taskitem;
+        private List<ToDoItem> _Taskitem;
         #endregion
 
         #region Constructors
-        public ToDoList(IEnumerable<Taskitem> Taskitem)
+        public ToDoList(IEnumerable<ToDoItem> Taskitem)
         {
             _Taskitem = Taskitem.ToList();
 
         }
         public ToDoList()
         {
-            _Taskitem = new List<Taskitem>();
+            _Taskitem = new List<ToDoItem>();
 
         }
         #endregion
 
 
         #region  Functions
-        public void Add(Taskitem item)
+        public void Add(ToDoItem item)
         {
             if (_Taskitem != null)
 
@@ -37,7 +37,7 @@ namespace ClassLibraryToDoList
                 throw new NullReferenceException();
         }
 
-        public bool IsConteynt(Taskitem item)
+        public bool IsConteynt(ToDoItem item)
         {
             return _Taskitem.Contains(item);
         }
@@ -48,7 +48,16 @@ namespace ClassLibraryToDoList
                 Console.WriteLine(_Taskitem[i].ToString());
             }
         }
-        public void Completd()
+        public IEnumerable<ToDoItem> ShowCompletd()
+        {
+            var e = from s in _Taskitem
+                    where s.IsDone == true
+                    select s;
+
+            return e;
+        }
+
+        public void ReceiveCompletd()
         {
             var e = from s in _Taskitem
                     where s.IsDone == true
@@ -58,9 +67,10 @@ namespace ClassLibraryToDoList
             {
                 Console.WriteLine(i.ToString());
             }
+
         }
 
-        public int ReturnItm(Taskitem item)
+        public int ReturnItm(ToDoItem item)
         {
             if (_Taskitem.Contains(item))
             {
@@ -73,11 +83,10 @@ namespace ClassLibraryToDoList
                 throw new ArgumentException("Argument not found");
             }
         }
-        public void ChangeActive(Taskitem item)
+        public void ChangeActive(ToDoItem item)
         {
             if (_Taskitem.Contains(item))
-            {
-                
+            {                
 
                 if (item.IsDone == true)
                 {
@@ -95,7 +104,7 @@ namespace ClassLibraryToDoList
                 throw new ArgumentException("Argument not found");
             }
         }
-        public void Active()
+        public void ShowActive()
         {
             var e = from s in _Taskitem
                     where s.IsDone == false
@@ -106,7 +115,18 @@ namespace ClassLibraryToDoList
                 Console.WriteLine(i.ToString());
             }
         }
-        public void Remove(Taskitem item)
+
+
+        public IEnumerable<ToDoItem> ReceiveActive()
+        {
+            var e = from s in _Taskitem
+                    where s.IsDone == false
+                    select s;
+            return e;
+           
+        }
+
+        public void Remove(ToDoItem item)
         {
             _Taskitem.Remove(item);
         }
@@ -117,7 +137,7 @@ namespace ClassLibraryToDoList
 
         }
 
-        public IEnumerator<Taskitem> GetEnumerator()
+        public IEnumerator<ToDoItem> GetEnumerator()
         {
             return this.GetEnumerator();
         }
@@ -126,7 +146,6 @@ namespace ClassLibraryToDoList
         {
             return _Taskitem.GetEnumerator();
         }
-
         #endregion
     }
 }

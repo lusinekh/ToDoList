@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibraryToDoList
 {
-    public class Taskitem
+    public class ToDoItem
     {
         #region propertis
         private static int _Id = -1;
@@ -17,13 +17,13 @@ namespace ClassLibraryToDoList
 
 
         #region Constructor
-        public Taskitem(string _discript)
+        public ToDoItem(string _discript)
         {
             _Id = _Id + 1;
             Discript = _discript;
             IsDone = false;
         }
-        public Taskitem()
+        public ToDoItem()
         {
 
         }
